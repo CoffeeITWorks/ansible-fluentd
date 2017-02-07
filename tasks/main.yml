@@ -99,3 +99,10 @@
   notify:
     - restart td-agent
 
+- name: install plugins from raw url file, if any
+  get_url:
+      url: "{{ item }}"
+      dest: /etc/td-agent/plugin/
+  with_items: "{{ tdagent_plugins_url | default([]) }}"
+  notify:
+    - restart td-agent
